@@ -27,6 +27,9 @@ class Outer {
     public static void main(String[] args) {
         Outer outer = new Outer();
         System.out.println(outer.outer_st_i);
+        outer.outerMethod();
+
+        Outer.InnerStatic.meth();
 
         Inner inner = outer.new Inner(){
             @Override
@@ -62,35 +65,66 @@ class Outer {
     }
 
     public static void outerMethod_St(){
-        System.out.println(outer_st_i
+        System.out.println(
+                "Outer static method"
+                + outer_st_i
                 + "\n" + outer_st_final_i);
     }
 
-    public void outerMethod(){
-        System.out.println(outer_st_i
+    private void outerMethod(){
+        System.out.println(
+                "Outer Method"
+                + "\n" + outer_st_i
                 + "\n" + outer_st_final_i);
+
+        this.new InnerCl().innerMethod();
+    }
+
+    class InnerCl {
+
+        private void innerMethod(){
+            System.out.println("InnerCl Method");
+        }
     }
 
     abstract class Inner extends HelloAbstract implements HelloInterface{
         //static int i;   No static inside inner class
         abstract void innerAbstract();
         private int inner_i = 30;
+        private int outer_i = 99;
 
         private void innerMethod(){
             System.out.println(
-                      "\n" + outer_i
+                    "Inner Method"
+                    + "\n" + outer_i
                     + "\n" + outer_final_i
                     + "\n" + outer_st_i
                     + "\n" + outer_st_final_i
                     + "\n" + inner_i);
+            outerMethod();
         }
+
+        private void outerMethod(){
+            System.out.println(
+                    "Outer Method shadowed"
+                            + "\n" + outer_st_i
+                            + "\n" + outer_st_final_i);
+        }
+
     }
 
     interface HelloInterface {
         void sayHelloInterface();
     }
 
-    abstract static class HelloAbstract extends AbsClass{
+    static class InnerStatic{
+        static void meth(){
+            System.out.println("StaticInner method");
+            outerMethod_St();
+        }
+    }
+
+    abstract class HelloAbstract extends AbsClass{
 
         public HelloAbstract() {
         }
