@@ -18,6 +18,7 @@ Rules for an inner class:
 */
 class Outer {
 
+
     private static final int outer_st_final_i = 50;
     private static int outer_st_i = 5;
 
@@ -30,6 +31,7 @@ class Outer {
         outer.outerMethod();
 
         Outer.InnerStatic.meth();
+        new Outer.InnerStatic().method();
 
 
         Inner inner = outer.new Inner(){
@@ -83,7 +85,7 @@ class Outer {
         this.new InnerCl().innerMethod();
     }
 
-    private class InnerCl {
+    class InnerCl {
 
         private void innerMethod(){
             System.out.println("InnerCl Method");
@@ -128,6 +130,8 @@ class Outer {
         static void meth(){
             System.out.println("StaticInner method");
             outerMethod_St();
+            System.out.println(new Outer().outer_i);
+            new Outer().new InnerCl().innerMethod();
         }
 
         void method(){
@@ -157,7 +161,7 @@ class Tester{
 
     public static void main(String[] args) {
         Outer outer = new Outer();
-
+        Outer.InnerCl innerCl = outer.new InnerCl();
 
         Outer.InnerStatic innerStatic = new Outer.InnerStatic();
         innerStatic.method();
