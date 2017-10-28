@@ -31,6 +31,7 @@ class Outer {
 
         Outer.InnerStatic.meth();
 
+
         Inner inner = outer.new Inner(){
             @Override
             public void sayHelloInterface() {
@@ -69,9 +70,11 @@ class Outer {
                 "Outer static method"
                 + outer_st_i
                 + "\n" + outer_st_final_i);
+        new InnerStatic().method();
     }
 
     private void outerMethod(){
+        InnerStatic.meth();
         System.out.println(
                 "Outer Method"
                 + "\n" + outer_st_i
@@ -80,10 +83,13 @@ class Outer {
         this.new InnerCl().innerMethod();
     }
 
-    class InnerCl {
+    private class InnerCl {
 
         private void innerMethod(){
             System.out.println("InnerCl Method");
+            outerMethod();
+            outerMethod_St();
+            System.out.println(outer_st_i);
         }
     }
 
@@ -102,6 +108,7 @@ class Outer {
                     + "\n" + outer_st_final_i
                     + "\n" + inner_i);
             outerMethod();
+
         }
 
         private void outerMethod(){
@@ -122,6 +129,11 @@ class Outer {
             System.out.println("StaticInner method");
             outerMethod_St();
         }
+
+        void method(){
+            System.out.println("Non StaticInner method");
+        }
+
     }
 
     abstract class HelloAbstract extends AbsClass{
@@ -146,27 +158,11 @@ class Tester{
     public static void main(String[] args) {
         Outer outer = new Outer();
 
-        final Outer.Inner inner = outer.new Inner() {
-            @Override
-            void innerAbstract() {
 
-            }
+        Outer.InnerStatic innerStatic = new Outer.InnerStatic();
+        innerStatic.method();
 
-            @Override
-            public void sayHelloInterface() {
-
-            }
-
-            @Override
-            void sayHelloAbstract() {
-
-            }
-
-            @Override
-            void absMeth() {
-
-            }
-        };
+        Outer.InnerStatic.meth();
     }
 
 }
