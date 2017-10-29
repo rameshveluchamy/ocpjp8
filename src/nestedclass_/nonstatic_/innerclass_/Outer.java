@@ -25,8 +25,15 @@ class Outer {
     private final int outer_final_i = 20;
     private int outer_i = 2;
 
+    private int i = 200;
+
     public static void main(String[] args) {
         Outer outer = new Outer();
+        InnerCl innerCl = new Outer().new  InnerCl();
+        System.out.println("here1");
+        System.out.println(innerCl.i);
+        innerCl.innerMethod();
+
         System.out.println(outer.outer_st_i);
         outer.outerMethod();
 
@@ -85,12 +92,16 @@ class Outer {
         this.new InnerCl().innerMethod();
     }
 
-    class InnerCl {
+    private class InnerCl {
+
+        private int i = 500;
 
         private void innerMethod(){
+            System.out.println(i);
+
             System.out.println("InnerCl Method");
-            outerMethod();
-            outerMethod_St();
+            //outerMethod();
+            //outerMethod_St();
             System.out.println(outer_st_i);
         }
     }
@@ -161,7 +172,7 @@ class Tester{
 
     public static void main(String[] args) {
         Outer outer = new Outer();
-        Outer.InnerCl innerCl = outer.new InnerCl();
+        //Outer.InnerCl innerCl = outer.new InnerCl();
 
         Outer.InnerStatic innerStatic = new Outer.InnerStatic();
         innerStatic.method();
